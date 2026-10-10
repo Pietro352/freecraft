@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>FREECRAFT - Test di rete</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=add091ad">
+<style>
+  :root { color-scheme: dark; }
+  body { margin: 0; padding: 24px 16px 64px; background: #0b0d10; color: #e8eaed; font: 15px/1.5 system-ui, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 24px 0 8px; }
+  p, label { color: #aab0b8; }
+  a { color: #7fd36b; }
+  ul { list-style: none; padding: 0; margin: 0; }
+  li { padding: 8px 12px; margin-bottom: 6px; border-radius: 8px; background: #151a20; border-left: 4px solid #444; word-break: break-all; }
+  li.ok { border-color: #4caf50; }
+  li.bad { border-color: #e5534b; }
+  li.warn { border-color: #e0a030; }
+  li.wait { border-color: #6b7280; }
+  input[type=text] { width: 100%; box-sizing: border-box; padding: 10px; border-radius: 8px; border: 1px solid #2c333c; background: #10141a; color: inherit; font: inherit; }
+  button { padding: 10px 18px; border: 0; border-radius: 8px; background: #4caf50; color: #08110a; font: inherit; font-weight: 600; cursor: pointer; }
+  button:disabled { opacity: .5; cursor: default; }
+  .verdict { margin-top: 20px; padding: 14px; border-radius: 10px; background: #151a20; border: 1px solid #2c333c; }
+  .verdict.ok { border-color: #4caf50; }
+  .verdict.bad { border-color: #e5534b; }
+  .verdict.warn { border-color: #e0a030; }
+  .row { display: flex; gap: 12px; align-items: center; margin-top: 10px; flex-wrap: wrap; }
+  code { background: #151a20; padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Test di rete</h1>
+  <p>Aprila sul computer che non riesce a collegarsi alla partita. Controlla relay, STUN e TURN e dice cosa blocca la connessione.</p>
+
+  <h2>TURN di ripiego (consigliato)</h2>
+  <p>Per reti molto restrittive serve un server TURN raggiungibile su TCP/443. Crea un account gratuito su <a href="https://dashboard.metered.ca/signup" target="_blank" rel="noopener">metered.ca</a>, poi incolla qui l'indirizzo delle credenziali, nella forma <code>https://NOME.metered.live/api/v1/turn/credentials?apiKey=CHIAVE</code>.</p>
+  <input type="text" id="credentialsUrl" placeholder="https://NOME.metered.live/api/v1/turn/credentials?apiKey=..." autocomplete="off" spellcheck="false">
+  <div class="row">
+    <label><input type="checkbox" id="forceRelay"> Passa sempre dal TURN (solo per provare)</label>
+  </div>
+  <div class="row">
+    <button id="save" type="button">Salva</button>
+    <span id="saved"></span>
+  </div>
+
+  <h2>Esegui il test</h2>
+  <div class="row"><button id="run" type="button">Testa la connessione</button></div>
+  <div id="results"></div>
+  <div id="verdict" class="verdict" role="status">Premi "Testa la connessione".</div>
+  <p><a href="./">Torna al gioco</a></p>
+</main>
+<script src="assets/net-boost.js?v=26f39722"></script>
+<script src="assets/net-test.js?v=0e4cac3f"></script>
+</body>
+</html>

@@ -27,7 +27,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
 // Le pagine che caricano file da assets/. Il client di gioco e' un unico file
 // da 18 MB: lo trattiamo come le altre pagine, ma solo tre righe lo riguardano.
-const PAGES = ["index.html", "freecraft/index.html"];
+const PAGES = ["index.html", "freecraft/index.html", "rete-test.html"];
 
 // Cerchiamo solo dentro src="..." e href="...", non ovunque compaia la parola
 // "assets": dentro il client di gioco c'e' un blocco enorme di dati compressi e
