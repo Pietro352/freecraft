@@ -35,15 +35,30 @@
     var CACHE_KEY = 'freecrafter:net:turn-cache:v1';
     var CACHE_MAX_AGE_MS = 6 * 60 * 60 * 1000;
 
-    // STUN pubblici. Oltre alle porte standard ci sono varianti su 53/80/443:
-    // alcune reti bloccano 3478 e 19302 ma non queste.
+    // STUN pubblici (la porta 53 non si usa: i browser la bloccano).
     var STUN_URLS = [
         'stun:stun.cloudflare.com:3478',
-        'stun:stun.cloudflare.com:53',
         'stun:stun.l.google.com:19302',
         'stun:stun1.l.google.com:19302',
         'stun:stun.relay.metered.ca:80'
     ];
+
+    // TURN pubblici gratuiti (Open Relay di Metered, credenziali pubbliche) usati
+    // quando non ne configuri uno tuo. Sono best-effort: servizio di terzi,
+    // senza garanzie. Le varianti TCP/TLS su 443 sono quelle che passano anche
+    // dove l'UDP e' bloccato. La pagina rete-test.html mostra quali rispondono.
+    var OPEN_RELAY = { username: 'openrelayproject', credential: 'openrelayproject' };
+    var DEFAULT_TURN = [
+        'turns:openrelay.metered.ca:443?transport=tcp',
+        'turn:openrelay.metered.ca:443?transport=tcp',
+        'turn:openrelay.metered.ca:80?transport=tcp',
+        'turns:staticauth.openrelay.metered.ca:443?transport=tcp',
+        'turn:staticauth.openrelay.metered.ca:443?transport=tcp',
+        'turn:openrelay.metered.ca:443',
+        'turn:openrelay.metered.ca:80'
+    ].map(function (url) {
+        return { urls: url, username: OPEN_RELAY.username, credential: OPEN_RELAY.credential };
+    });
 
     function readJson(storage, key) {
         try {
@@ -87,6 +102,7 @@
         fetch(options.credentialsUrl, controller ? { signal: controller.signal } : undefined)
             .then(function (response) { return response.ok ? response.json() : []; })
             .then(function (list) {
+                if (list && Array.isArray(list.iceServers)) list = list.iceServers;
                 if (!Array.isArray(list)) return;
                 fetchedTurn = list.filter(isValidServer);
                 try {
@@ -99,7 +115,7 @@
 
     function extraServers() {
         var list = [{ urls: STUN_URLS }];
-        return list.concat(options.turn.filter(isValidServer), fetchedTurn);
+        return list.concat(options.turn.filter(isValidServer), fetchedTurn, DEFAULT_TURN);
     }
 
     // Unisce i server che da' il relay con i nostri, senza duplicati.

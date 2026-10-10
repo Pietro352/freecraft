@@ -129,7 +129,7 @@
         var turns = net.extraServers().filter(function (s) { return s.username || s.credential; });
         summary.turnConfigured = turns.length;
         if (!turns.length) {
-            row(turnList, 'warn', 'Nessun TURN configurato', 'compila il campo qui sopra (vedi istruzioni)');
+            row(turnList, 'warn', 'Nessun TURN disponibile', 'nessun server TURN da provare');
         }
         await Promise.all(turns.map(function (server) {
             var li = row(turnList, 'wait', describeServer(server), 'controllo...');
@@ -151,12 +151,9 @@
         } else if (summary.turn > 0) {
             state = 'ok';
             text = 'Tutto a posto: anche se il collegamento diretto fallisse, il TURN fa da ponte.';
-        } else if (summary.turnConfigured === 0) {
-            state = 'warn';
-            text = 'STUN funziona, quindi molte reti vanno gia\' bene. Ma senza un TURN i collegamenti falliscono con NAT severi (CGNAT, alcuni hotspot e Wi-Fi aziendali). Consigliato aggiungerlo.';
         } else {
             state = 'warn';
-            text = 'STUN funziona ma il TURN configurato no: controlla credenziali e indirizzo.';
+            text = 'STUN funziona ma nessun TURN risponde: molte reti vanno bene lo stesso, ma con NAT severi (CGNAT, alcuni hotspot e Wi-Fi aziendali) il collegamento puo\' fallire.';
         }
         verdict.className = 'verdict ' + state;
         verdict.textContent = text;

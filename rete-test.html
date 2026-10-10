@@ -37,8 +37,8 @@
   <p>Aprila sul computer che non riesce a collegarsi alla partita. Controlla relay, STUN e TURN e dice cosa blocca la connessione.</p>
 
   <h2>TURN di ripiego (consigliato)</h2>
-  <p>Per reti molto restrittive serve un server TURN raggiungibile su TCP/443. Crea un account gratuito su <a href="https://dashboard.metered.ca/signup" target="_blank" rel="noopener">metered.ca</a>, poi incolla qui l'indirizzo delle credenziali, nella forma <code>https://NOME.metered.live/api/v1/turn/credentials?apiKey=CHIAVE</code>.</p>
-  <input type="text" id="credentialsUrl" placeholder="https://NOME.metered.live/api/v1/turn/credentials?apiKey=..." autocomplete="off" spellcheck="false">
+  <p>Per reti molto restrittive serve un server TURN raggiungibile su TCP/443. Incolla qui l'indirizzo del tuo Worker Cloudflare (vedi <code>cloudflare-worker/turn-worker.js</code>), per esempio <code>https://NOME.UTENTE.workers.dev</code>, oppure quello delle credenziali Metered.</p>
+  <input type="text" id="credentialsUrl" placeholder="https://NOME.UTENTE.workers.dev" autocomplete="off" spellcheck="false">
   <div class="row">
     <label><input type="checkbox" id="forceRelay"> Passa sempre dal TURN (solo per provare)</label>
   </div>
@@ -53,7 +53,7 @@
   <div id="verdict" class="verdict" role="status">Premi "Testa la connessione".</div>
   <p><a href="./">Torna al gioco</a></p>
 </main>
-<script src="assets/net-boost.js?v=26f39722"></script>
-<script src="assets/net-test.js?v=0e4cac3f"></script>
+<script src="assets/net-boost.js?v=cb0bb2d7"></script>
+<script src="assets/net-test.js?v=4ab3e883"></script>
 </body>
 </html>
