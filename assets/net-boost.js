@@ -72,6 +72,7 @@
         return {
             credentialsUrl: typeof stored.credentialsUrl === 'string' ? stored.credentialsUrl.trim() : '',
             turn: Array.isArray(stored.turn) ? stored.turn : [],
+            manual: stored.manual && typeof stored.manual === 'object' ? stored.manual : {},
             forceRelay: stored.forceRelay === true
         };
     }

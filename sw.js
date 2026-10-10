@@ -19,7 +19,7 @@
 // tools/stamp-assets.mjs a ogni rilascio. Quando pubblichiamo un client nuovo
 // l'impronta cambia, il nome dell'archivio cambia con lei e il gioco nuovo viene
 // scaricato. Nessuno resta indietro.
-const GAME_BUILD = "60742560ffbe";
+const GAME_BUILD = "7940adfd1f8d";
 const GAME_CACHE_PREFIX = "freecraft-game-";
 const CACHE = `${GAME_CACHE_PREFIX}${GAME_BUILD}`;
 const GAME_PATH = "/freecraft/index.html";

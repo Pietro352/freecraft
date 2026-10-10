@@ -164,16 +164,37 @@
         var options = net.readOptions();
         $('credentialsUrl').value = options.credentialsUrl;
         $('forceRelay').checked = options.forceRelay;
+        $('turnHost').value = options.manual.host || '';
+        $('turnUser').value = options.manual.username || '';
+        $('turnPass').value = options.manual.credential || '';
+    }
+
+    function manualServers(host, username, credential) {
+        // Accetta anche "turn:host:3478" incollato per intero: teniamo solo il nome host.
+        var clean = host.replace(/^[a-z]+:/i, '').replace(/^\/\//, '').replace(/[:?/].*$/, '').trim();
+        if (!clean || !username || !credential) return [];
+        return [{
+            urls: [
+                'turns:' + clean + ':443?transport=tcp',
+                'turn:' + clean + ':3478?transport=tcp',
+                'turn:' + clean + ':3478?transport=udp'
+            ],
+            username: username,
+            credential: credential
+        }];
     }
 
     function saveForm() {
-        var current = net.readOptions();
+        var host = $('turnHost').value.trim();
+        var username = $('turnUser').value.trim();
+        var credential = $('turnPass').value.trim();
         var ok = net.saveOptions({
             credentialsUrl: $('credentialsUrl').value.trim(),
-            turn: current.turn,
+            turn: manualServers(host, username, credential),
+            manual: { host: host, username: username, credential: credential },
             forceRelay: $('forceRelay').checked
         });
-        $('saved').textContent = ok ? 'Salvato. Ricarica il gioco per applicarlo.' : 'Impossibile salvare (storage bloccato dal browser).';
+        $('saved').textContent = ok ? 'Salvato. Ricarica la pagina e il gioco per applicarlo.' : 'Impossibile salvare (storage bloccato dal browser).';
     }
 
     if (!net || !net.Native) {

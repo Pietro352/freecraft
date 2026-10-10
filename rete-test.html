@@ -39,6 +39,11 @@
   <h2>TURN di ripiego (consigliato)</h2>
   <p>Per reti molto restrittive serve un server TURN raggiungibile su TCP/443. Incolla qui l'indirizzo del tuo Worker Cloudflare (vedi <code>cloudflare-worker/turn-worker.js</code>), per esempio <code>https://NOME.UTENTE.workers.dev</code>, oppure quello delle credenziali Metered.</p>
   <input type="text" id="credentialsUrl" placeholder="https://NOME.UTENTE.workers.dev" autocomplete="off" spellcheck="false">
+  <h2>Oppure TURN con nome utente e password</h2>
+  <p>Per esempio un account gratuito su <a href="https://www.expressturn.com/signup" target="_blank" rel="noopener">expressturn.com</a> (senza carta): dalla dashboard copia il server (es. <code>relay1.expressturn.com</code>), il nome utente e la password.</p>
+  <input type="text" id="turnHost" placeholder="Server, es. relay1.expressturn.com" autocomplete="off" spellcheck="false">
+  <div class="row"><input type="text" id="turnUser" placeholder="Nome utente" autocomplete="off" spellcheck="false"></div>
+  <div class="row"><input type="text" id="turnPass" placeholder="Password" autocomplete="off" spellcheck="false"></div>
   <div class="row">
     <label><input type="checkbox" id="forceRelay"> Passa sempre dal TURN (solo per provare)</label>
   </div>
@@ -53,7 +58,7 @@
   <div id="verdict" class="verdict" role="status">Premi "Testa la connessione".</div>
   <p><a href="./">Torna al gioco</a></p>
 </main>
-<script src="assets/net-boost.js?v=cb0bb2d7"></script>
-<script src="assets/net-test.js?v=4ab3e883"></script>
+<script src="assets/net-boost.js?v=d9481bf4"></script>
+<script src="assets/net-test.js?v=1505a10e"></script>
 </body>
 </html>
