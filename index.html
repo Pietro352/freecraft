@@ -115,6 +115,10 @@
         }
         .mc-button:disabled { opacity: 0.6; cursor: not-allowed; }
 
+        .fc-version-picker { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 0 16px 14px; }
+        .fc-version-picker .mc-button.small { margin-top: 0; min-width: 190px; padding: 10px 22px; }
+        .fc-version-picker .mc-button[aria-checked="true"] { border-color: #ffcc00; color: #ffcc00; background-color: #6e6e6e; }
+        .fc-version-sub { display: block; font-size: 0.7em; opacity: 0.85; margin-top: 4px; }
         .mc-button.small {
             padding: 10px 40px; font-size: 1rem; min-width: 200px; margin-top: 10px;
         }
@@ -214,6 +218,10 @@
         <div class="mobile-quality-notice" role="note">
             <strong>Su computer si gioca meglio</strong>
             <span>Per prestazioni, controlli e qualità superiori, ti consigliamo di avviare FREECRAFT da un computer.</span>
+        </div>
+        <div class="fc-version-picker" id="version-picker" role="radiogroup" aria-label="Versione di Freecraft">
+            <button class="mc-button small" type="button" role="radio" data-version="v1" aria-checked="true">Freecraft v.1 <span class="fc-version-sub">1.8.8 · con mod</span></button>
+            <button class="mc-button small" type="button" role="radio" data-version="v2" aria-checked="false">Freecraft v.2 <span class="fc-version-sub">26.2</span></button>
         </div>
         <button class="mc-button" id="play-btn">Gioca</button>
         <div class="fc-home-actions">
@@ -397,7 +405,7 @@
     <script src="assets/launcher-config.js?v=6a7f4df7"></script>
     <script src="assets/releases.js?v=fabfdbf6"></script>
     <script src="assets/telemetry.js?v=1324fde0"></script>
-    <script src="assets/launcher-boot.js?v=058f3655"></script>
+    <script src="assets/launcher-boot.js?v=ae1fc2cc"></script>
     <script src="assets/launcher-panels.js?v=2c8df28f"></script>
     <script src="assets/launcher-effects.js?v=c1657b3e"></script>
     <script src="assets/offline-mode.js?v=6b28c558"></script>

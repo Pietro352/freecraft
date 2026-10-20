@@ -168,8 +168,29 @@ const freecraftFrame = document.getElementById('freecraft-frame');
 const progressBar = document.getElementById('progress-bar');
 const loadingMsg = document.getElementById('loading-msg');
 
-// Percorso locale del client Freecraft.
-const FREECRAFT_SOURCE = "./freecraft/index.html";
+// Percorsi locali dei client Freecraft: v1 (1.8.8, con le mod) e v2 (26.2).
+const FREECRAFT_VERSIONS = {
+    v1: "./freecraft/index.html",
+    // ?v= forza il browser a riscaricare il client quando lo modifico.
+    v2: "./freecraft2/index.html?v=freetek1"
+};
+let selectedVersion = 'v1';
+try {
+    const saved = localStorage.getItem('freecraft-version');
+    if (saved && FREECRAFT_VERSIONS[saved]) selectedVersion = saved;
+} catch (e) {}
+let FREECRAFT_SOURCE = FREECRAFT_VERSIONS[selectedVersion];
+
+const versionButtons = document.querySelectorAll('#version-picker [data-version]');
+function applyVersion(version) {
+    if (!FREECRAFT_VERSIONS[version]) return;
+    selectedVersion = version;
+    FREECRAFT_SOURCE = FREECRAFT_VERSIONS[version];
+    versionButtons.forEach((btn) => btn.setAttribute('aria-checked', String(btn.dataset.version === version)));
+    try { localStorage.setItem('freecraft-version', version); } catch (e) {}
+}
+versionButtons.forEach((btn) => btn.addEventListener('click', () => applyVersion(btn.dataset.version)));
+applyVersion(selectedVersion);
 
 // Usata da chat.js per restituire il focus tastiera al gioco quando
 // si chiude il pannello CraftChat.
@@ -289,7 +310,8 @@ function showLoadError() {
     loadingMsg.innerText = offline
         ? "Sei offline e il client di gioco non è ancora stato scaricato su questo dispositivo. Connettiti a internet e avvia il gioco almeno una volta: poi potrai giocare anche senza rete."
         : "Errore: client Freecraft non trovato in " + FREECRAFT_SOURCE +
-        ". Assicurati di aver caricato la cartella /freecraft/ accanto a questo file.";
+        ". Assicurati di aver caricato la cartella del client accanto a questo file" +
+        (selectedVersion === 'v2' ? " (la v.2 sta in /freecraft2/ ed e' solo locale)." : ".");
     loadingMsg.classList.add('error');
     retryBtn.style.display = 'inline-block';
 }
