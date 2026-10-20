@@ -172,7 +172,7 @@ const loadingMsg = document.getElementById('loading-msg');
 const FREECRAFT_VERSIONS = {
     v1: "./freecraft/index.html",
     // ?v= forza il browser a riscaricare il client quando lo modifico.
-    v2: "./freecraft2/index.html?v=freetek1"
+    v2: "./freecraft2/index.html?v=freetek2"
 };
 let selectedVersion = 'v1';
 try {
@@ -311,7 +311,7 @@ function showLoadError() {
         ? "Sei offline e il client di gioco non è ancora stato scaricato su questo dispositivo. Connettiti a internet e avvia il gioco almeno una volta: poi potrai giocare anche senza rete."
         : "Errore: client Freecraft non trovato in " + FREECRAFT_SOURCE +
         ". Assicurati di aver caricato la cartella del client accanto a questo file" +
-        (selectedVersion === 'v2' ? " (la v.2 sta in /freecraft2/ ed e' solo locale)." : ".");
+        ".";
     loadingMsg.classList.add('error');
     retryBtn.style.display = 'inline-block';
 }
